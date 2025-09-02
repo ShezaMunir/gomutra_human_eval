@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Sign in — Cue Annotation{% endblock %}
+{% block content %}
+  <section class="card narrow">
+    <h1>Sign in</h1>
+    <form method="post">
+      <label for="name">Your name (used to create a folder)</label>
+      <input type="text" id="name" name="name" placeholder="e.g., sheza" required />
+      <button type="submit">Continue</button>
+    </form>
+  </section>
+{% endblock %}

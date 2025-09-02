@@ -1,0 +1,82 @@
+{
+  "annotator": "sheza",
+  "model": "gpt4o_layer2_annotations",
+  "row_index": 2,
+  "transcript_no": 3,
+  "title": "Listen to what this IIT Bombay PhD Dr. has to say about cow urine  - Desi Cow Urine benefits",
+  "stance": "promoting",
+  "items": [
+    {
+      "tag_index": 1,
+      "tag_text": "Appeal to Authority",
+      "decision": "agree"
+    },
+    {
+      "tag_index": 2,
+      "tag_text": "Appeal to Tradition/Religion",
+      "decision": "agree"
+    },
+    {
+      "tag_index": 3,
+      "tag_text": "Appeal to Authority",
+      "decision": "agree"
+    },
+    {
+      "tag_index": 4,
+      "tag_text": "Appeal to Tradition/Religion",
+      "decision": "agree"
+    },
+    {
+      "tag_index": 5,
+      "tag_text": "Scientific Jargon",
+      "decision": "agree"
+    },
+    {
+      "tag_index": 6,
+      "tag_text": "Scientific Jargon",
+      "decision": "agree"
+    },
+    {
+      "tag_index": 7,
+      "tag_text": "Scientific Jargon",
+      "decision": "agree"
+    },
+    {
+      "tag_index": 8,
+      "tag_text": "Appeal to Tradition/Religion",
+      "decision": "agree"
+    },
+    {
+      "tag_index": 9,
+      "tag_text": "Anecdotal Evidence",
+      "decision": "agree"
+    },
+    {
+      "tag_index": 10,
+      "tag_text": "Appeal to Tradition/Religion",
+      "decision": "agree"
+    },
+    {
+      "tag_index": 11,
+      "tag_text": "Appeal to Tradition/Religion",
+      "decision": "agree"
+    },
+    {
+      "tag_index": 12,
+      "tag_text": "Social Proof",
+      "decision": "agree"
+    },
+    {
+      "tag_index": 13,
+      "tag_text": "Anecdotal Evidence",
+      "decision": "disagree"
+    },
+    {
+      "tag_index": 14,
+      "tag_text": "Efficacy Appeal",
+      "decision": "agree"
+    }
+  ],
+  "notes": "",
+  "saved_at": "2025-09-02T13:59:50.651821Z"
+}

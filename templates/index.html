@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Index — Cue Annotation{% endblock %}
+{% block content %}
+  <section class="controls card">
+    <form method="get" action="{{ url_for('index') }}" class="row">
+      <div>
+        <label for="model">Model</label>
+        <select id="model" name="model" onchange="this.form.submit()">
+          {% for m in models %}
+            <option value="{{ m }}" {% if m == model %}selected{% endif %}>{{ m }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </form>
+  </section>
+
+  <section class="card">
+    <h1>Transcripts</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Stance</th>
+          <th>Progress</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for r in rows %}
+        <tr>
+          <td>{{ r.display_no }}</td>
+          <td>{{ r.title }}</td>
+          <td>{{ r.stance }}</td>
+          <td>{{ r.progress }}</td>
+          <td>
+            <a class="btn" href="{{ url_for('annotate', row_idx=r.idx, model=model) }}">Annotate</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    <form class="row goto" method="get" action="{{ url_for('annotate', row_idx=0) }}">
+      <input type="hidden" name="model" value="{{ model }}" />
+      <label for="jump">Jump to transcript #</label>
+      <input type="number" id="jump" name="row_idx" min="1" max="{{ rows|length }}" placeholder="1-{{ rows|length }}" required />
+      <button type="submit">Go</button>
+    </form>
+  </section>
+{% endblock %}

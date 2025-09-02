@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Annotate T{{ display_no }} — {{ model }}{% endblock %}
+{% block content %}
+  <section class="card">
+    <form method="post">
+      <div class="toolbar row">
+        <div>
+          <label>Model</label>
+          <select name="model" onchange="document.getElementById('intent').value='switch_model'; this.form.submit();">
+            {% for m in models %}
+              <option value="{{ m }}" {% if m == model %}selected{% endif %}>{{ m }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="meta">
+          <div><strong>Transcript:</strong> T{{ display_no }} / {{ total_rows }}</div>
+          {% if title %}<div><strong>Title:</strong> {{ title }}</div>{% endif %}
+          {% if stance %}<div><strong>Stance:</strong> {{ stance }}</div>{% endif %}
+        </div>
+      </div>
+
+      <hr />
+
+      <h2>Annotated Text</h2>
+      <div class="annotated" id="annotated">
+        {% for seg in stream %}
+          {% if seg.kind == 'text' %}
+            <span class="txt">{{ seg.text }}</span>
+          {% else %}
+            <span class="tag-block">
+              <span class="tag-chip">[{{ seg.text }}]</span>
+              <label class="choice">
+                <input type="radio" name="dec_tag_{{ seg.idx }}" value="agree" {% if choices.get(seg.idx)=='agree' %}checked{% endif %}> Agree
+              </label>
+              <label class="choice">
+                <input type="radio" name="dec_tag_{{ seg.idx }}" value="disagree" {% if choices.get(seg.idx)=='disagree' %}checked{% endif %}> Disagree
+              </label>
+              <span class="tag-id">#{{ seg.idx }}</span>
+            </span>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="notes">
+        <label for="notes">Notes (saved with this transcript)</label>
+        <textarea id="notes" name="notes" rows="5" placeholder="Anything notable about this transcript?">{{ notes }}</textarea>
+      </div>
+
+      <input type="hidden" id="intent" name="intent" value="stay" />
+      <script>
+  // Block submit if any tag radio group (dec_tag_*) is unanswered.
+  (function () {
+    const form = document.currentScript.closest('form');
+    form.addEventListener('submit', function (e) {
+      // collect unique tag group names
+      const radios = form.querySelectorAll('input[type="radio"][name^="dec_tag_"]');
+      const names = Array.from(new Set(Array.from(radios).map(r => r.name)));
+      const missing = names.filter(n => !form.querySelector(`input[name="${n}"]:checked`));
+
+      if (missing.length > 0) {
+        const ids = missing.map(n => '#' + n.replace('dec_tag_', ''));
+        alert(`${missing.length} tag(s) are unannotated: ${ids.join(', ')}.\nPlease review and complete all tags before saving.`);
+        e.preventDefault();
+        // optional: scroll to first missing tag
+        const first = form.querySelector(`input[name="${missing[0]}"]`);
+        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  })();
+</script>
+
+      
+      <div class="nav row">
+        {% if has_prev %}
+        <button type="submit" onclick="document.getElementById('intent').value='prev'">◀ Previous</button>
+        {% endif %}
+        <button type="submit" onclick="document.getElementById('intent').value='index'">Index</button>
+        {% if has_next %}
+        <button type="submit" onclick="document.getElementById('intent').value='next'">Next ▶</button>
+        {% endif %}
+      </div>
+    </form>
+  </section>
+{% endblock %}
